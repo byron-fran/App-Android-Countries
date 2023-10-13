@@ -11,7 +11,7 @@ import { CountriesContext } from './src/context/CountriesContext';
 const Drawer = createDrawerNavigator();
 
 const App = () => {
-  const { setCountries, setRefreshData } = useContext(CountriesContext);
+  const { setCountries, setRefreshData, setCurrentPage} = useContext(CountriesContext);
 
   useEffect(() => {
     const getCountries = async () => {
@@ -20,6 +20,7 @@ const App = () => {
       try {
         setRefreshData(!false)
         const { data } = await axios(url);
+        setCurrentPage(1)
         setCountries(data);
         setRefreshData(!true)
         //console.log(data) // si hay datos
