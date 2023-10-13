@@ -1,5 +1,5 @@
 import { View, Text } from 'react-native'
-import ListCoutries from '../views/ListCountries'
+import ListCoutries from '../views/Countries/ListCountries'
 import { createStackNavigator } from '@react-navigation/stack';
 
 const Stack = createStackNavigator();
