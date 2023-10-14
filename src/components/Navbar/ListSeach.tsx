@@ -7,7 +7,7 @@ const ListSearchItems : React.FC< ListProps[]> = ({filteredData}) => {
 
     return (
         <View>
-            <Text>ListSearchItems</Text>
+           
         </View>
 
     )}

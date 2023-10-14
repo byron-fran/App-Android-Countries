@@ -8,7 +8,7 @@ import NavBar from '../../components/Navbar/NavBar';
 import usePagination from '../../hooks/UsePagination';
 import ListButtons from '../Buttoms/ListButtons';
 
-const ListCoutries: React.FC<Countries[]> = () => {
+const ListCoutries = () => {
     const { setCurrentPage, countriesPerPage} = useContext(CountriesContext);
     const { pageButtoms, totalPages, currentPage,} = usePagination()
  

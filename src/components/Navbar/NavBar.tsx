@@ -34,7 +34,7 @@ const NavBar = () => {
         value={searchText}
         style={styles.inputText}
       />
-      <ListSearchItems filteredData={filteredData}/>
+      {/* <ListSearchItems filteredData={filteredData}/> */}
     </View>
 
   )
