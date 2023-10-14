@@ -19,5 +19,33 @@ export const styles = StyleSheet.create({
         width : '100%',
         objectFit : 'fill',
         height : 125
+    },
+    textH1: {
+        textAlign : 'center',
+        marginTop : 20,
+        color : '#000',
+        fontWeight : 'bold',
+        fontSize : 20,
+    },
+    relatedText :{
+        textAlign: 'center',
+        color : '#0B3599',
+        fontWeight : 'bold',
+        fontSize : 20,
+        marginBottom : 10
+    },
+    relatedImage : {
+        width : 200,
+        objectFit : 'fill',
+        height : 170,
+        borderRadius : 5
+    
+    },
+    relatedCard : {
+        marginRight : 20,
+        marginVertical : 20
+    },
+    relatedContainer: {
+        flexDirection : 'row'
     }
 })

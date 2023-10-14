@@ -1,6 +1,7 @@
 import {useState, useEffect, createContext, Dispatch,SetStateAction, ReactNode } from 'react';
 import { Countries } from '../interfaces/Countrires';
-
+import axios, {AxiosError} from 'axios';
+import { LOAD_SUBREGION, LOAD_DATA } from './reducers/types';
 export type CountriesContextType ={
     countries : Countries[];
     refreshaData : boolean;
@@ -33,7 +34,31 @@ export const CountriesProvider : React.FC<PropsProvider> = ({children}) => {
     const [countries, setCountries] = useState<Countries[]>(defaultContextValue.countries)
     const [refreshaData, setRefreshData] = useState<boolean>(defaultContextValue.refreshaData);
     const [currentPage, setCurrentPage] = useState<number>(defaultContextValue.currentPage);
-    const [ countriesPerPage, setCountriesPerPage] = useState<Countries[]>(defaultContextValue.countriesPerPage)
+    const [ countriesPerPage, setCountriesPerPage] = useState<Countries[]>(defaultContextValue.countriesPerPage);
+     
+    useEffect(()  => {
+        const getCountries = async () => {
+      
+            const url = `https://restcountries.com/v3.1/all`;
+            try {
+              setRefreshData(!false)
+              const { data } = await axios(url);
+              setCurrentPage(1)
+              setCountries(data);
+              setRefreshData(!true)
+              //console.log(data) // si hay datos
+      
+            }
+            catch (error: unknown) {
+              if (error instanceof AxiosError) {
+      
+                console.log(error.message)
+              }
+            }
+          };
+          getCountries();
+      
+    }, [])
     //console.log(countries) array vacio
     return (
         <CountriesContext.Provider value={{

@@ -1,0 +1,7 @@
+export const LOAD_DATA = 'LOAD_DATA';
+export const LOAD_DETAIL = 'LOAD_DETAIL';
+export const LOAD_COUNTRY = 'LOAD_COUNTRY'; 
+export const LOAD_SUBREGION = 'LOAD_SUBREGION';
+export const FILTER_BY_REGION = 'FILTER_BY_REGION';
+export const FILTER_BY_NAME = 'FILTER_BY_NAME';
+export const FILTER_BY_POPULATION = 'FILTER_BY_POPULATION'; 

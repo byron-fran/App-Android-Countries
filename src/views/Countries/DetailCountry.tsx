@@ -3,37 +3,61 @@ import { StackScreenProps } from '@react-navigation/stack'
 import { RootStackParams } from '../../routes/Routes'
 import { styles } from '../../layout/Detail';
 import { useNavigation } from '@react-navigation/native';
-
+import { formatQuantity } from '../../helpers';
+import RelatedCountries from './Relatedcountries';
+import { useEffect, useState } from 'react';
+import { Countries } from '../../interfaces/Countrires';
+import axios, { AxiosError } from 'axios';
 interface Props extends StackScreenProps<RootStackParams, 'detail'> { }
 
 const DetailCountry = ({ route }: Props) => {
     const { country } = route.params;
+    const [countriesSubRegion, setCountriesSubRegion] = useState<Countries[]>()
     const Navigate = useNavigation();
+
+    useEffect(() => {
+        const getCountriesSubRegion = async () => {
+            const url = `https://restcountries.com/v3.1/subregion/${country.subregion}`;
+            try {
+                const { data } = await axios(url);
+                setCountriesSubRegion(data.filter((country : Countries) => country.name?.common !== route.params.country.name?.common));
+            }
+            catch (error: unknown) {
+                if (error instanceof AxiosError) {
+                    console.log(error.message)
+                }
+            }
+        };
+        getCountriesSubRegion();
+        return () => {
+            setCountriesSubRegion([])
+        }
+    }, []);
 
     return (
         <ScrollView>
             <View style={styles.detailContainer}>
                 <View>
-                    <Text>{country.name?.common}</Text>
+                    <Text style={styles.countryName}>{country.name?.common}</Text>
                     <View>
                         <Image
                             style={styles.imageDetail}
                             source={{ uri: country.flags?.png }}
                         />
                     </View>
-                 
-                    <Text>{country.capital}</Text>
-                    <Text>{country.area}</Text>
-                    <Text>{country.region}</Text>
-                    <Text>{country.subregion}</Text>
-             
-                    <Text>{country.population}</Text>
-                    <Text>{country.continents[0]}</Text>
-                    <Text>{country.maps.googleMaps}</Text>
-                </View>
 
-                <TouchableOpacity style={styles.btnBack}>
-                    <Text style={styles.btnBackText} onPress={() => Navigate.goBack()}>Volver al inicio</Text>
+                    <Text style={styles.DetailText}>{country.capital}</Text>
+                    <Text style={styles.DetailText}>{country.area}</Text>
+                    <Text style={styles.DetailText}>{country.subregion}</Text>
+                    <Text style={styles.DetailText}>{formatQuantity(country.population)}</Text>
+                    <Text style={styles.DetailText}>{country.continents[0]}</Text>
+
+                </View>
+                <RelatedCountries countriesSubRegion={countriesSubRegion !== undefined ? countriesSubRegion : []} />
+                <TouchableOpacity style={styles.btnBack}
+                    onPress={() => Navigate.goBack()}
+                >
+                    <Text style={styles.btnBackText}>Volver al inicio</Text>
                 </TouchableOpacity>
             </View>
 
