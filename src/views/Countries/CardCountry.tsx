@@ -18,7 +18,7 @@ const CardCountry: React.FC<CountriesProps> = ({ country }) => {
         >
             <View>
                 <View>
-                    <Text>{country.name?.common}</Text>
+                    <Text style={styles.cardText}>{country.name?.common}</Text>
 
                     <Image
                         style={styles.cardImage}

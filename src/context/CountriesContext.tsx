@@ -10,7 +10,9 @@ export type CountriesContextType ={
     setCurrentPage : Dispatch<SetStateAction<number>>,
     setRefreshData : Dispatch<SetStateAction<boolean>>,
     countriesPerPage : Countries[],
-    setCountriesPerPage : Dispatch<SetStateAction <Countries[]>>
+    setCountriesPerPage : Dispatch<SetStateAction <Countries[]>>,
+    filteredData : Countries[],
+    setFilteredData : Dispatch<SetStateAction<Countries[]>>
 
 };
 
@@ -22,7 +24,9 @@ export const defaultContextValue : CountriesContextType = {
     setCurrentPage : () => {},
     setRefreshData : () => {},
     countriesPerPage: [],
-    setCountriesPerPage: () => {}
+    setCountriesPerPage: () => {},
+    filteredData : [],
+    setFilteredData : () => {}
 }
 export const CountriesContext = createContext(defaultContextValue);
 
@@ -35,6 +39,7 @@ export const CountriesProvider : React.FC<PropsProvider> = ({children}) => {
     const [refreshaData, setRefreshData] = useState<boolean>(defaultContextValue.refreshaData);
     const [currentPage, setCurrentPage] = useState<number>(defaultContextValue.currentPage);
     const [ countriesPerPage, setCountriesPerPage] = useState<Countries[]>(defaultContextValue.countriesPerPage);
+    const [filteredData, setFilteredData] = useState<Countries[]>(defaultContextValue.filteredData);
      
     useEffect(()  => {
         const getCountries = async () => {
@@ -60,6 +65,7 @@ export const CountriesProvider : React.FC<PropsProvider> = ({children}) => {
       
     }, [])
     //console.log(countries) array vacio
+
     return (
         <CountriesContext.Provider value={{
             countries,
@@ -69,7 +75,10 @@ export const CountriesProvider : React.FC<PropsProvider> = ({children}) => {
             currentPage,
             setCurrentPage,
             setCountriesPerPage,
-            countriesPerPage
+            countriesPerPage,
+            filteredData,
+            setFilteredData,
+  
             }}>
             {children}
         </CountriesContext.Provider>

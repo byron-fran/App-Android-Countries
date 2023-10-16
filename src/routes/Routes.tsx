@@ -3,11 +3,12 @@ import ListCoutries from '../views/Countries/ListCountries'
 import { createStackNavigator } from '@react-navigation/stack';
 import DetailCountry from '../views/Countries/DetailCountry';
 import { Countries } from '../interfaces/Countrires';
-
+import ListSearchItems from '../components/Navbar/ListSeach';
 
 export type RootStackParams ={
     countries : undefined,
-    detail : {country : Countries}
+    detail : {country : Countries},
+    search : {filteredData : Countries[]}
 }
 const Stack = createStackNavigator<RootStackParams>();
 
@@ -25,6 +26,11 @@ const Routes = () => {
             options={{
                 headerShown : false
             }}/>
+        <Stack.Screen name='search' component={ListSearchItems}
+            options={{
+                headerShown : false
+            }}
+        />    
      </Stack.Navigator>
 
     )}

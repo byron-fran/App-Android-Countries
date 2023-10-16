@@ -15,10 +15,18 @@ export const styles = StyleSheet.create({
         marginVertical : 20
 
     },
+    cardText : {
+        textAlign : 'center',
+        color : '#0B3599',
+
+        fontSize : 15,
+        marginBottom : 10
+    },
     cardImage : {
         width : '100%',
         objectFit : 'fill',
-        height : 125
+        height : 125,
+        borderRadius : 5
     },
     textH1: {
         textAlign : 'center',

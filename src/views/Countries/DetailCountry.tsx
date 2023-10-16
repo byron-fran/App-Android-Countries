@@ -5,22 +5,28 @@ import { styles } from '../../layout/Detail';
 import { useNavigation } from '@react-navigation/native';
 import { formatQuantity } from '../../helpers';
 import RelatedCountries from './Relatedcountries';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { Countries } from '../../interfaces/Countrires';
 import axios, { AxiosError } from 'axios';
+
+
 interface Props extends StackScreenProps<RootStackParams, 'detail'> { }
 
 const DetailCountry = ({ route }: Props) => {
     const { country } = route.params;
     const [countriesSubRegion, setCountriesSubRegion] = useState<Countries[]>()
     const Navigate = useNavigation();
-
+    const [navigateDetail, setNavigateDetail] = useState<boolean>(false)
+   
     useEffect(() => {
         const getCountriesSubRegion = async () => {
             const url = `https://restcountries.com/v3.1/subregion/${country.subregion}`;
+
             try {
+                setNavigateDetail(!true)
                 const { data } = await axios(url);
                 setCountriesSubRegion(data.filter((country : Countries) => country.name?.common !== route.params.country.name?.common));
+              
             }
             catch (error: unknown) {
                 if (error instanceof AxiosError) {
@@ -32,7 +38,7 @@ const DetailCountry = ({ route }: Props) => {
         return () => {
             setCountriesSubRegion([])
         }
-    }, []);
+    }, [navigateDetail]);
 
     return (
         <ScrollView>
@@ -53,7 +59,9 @@ const DetailCountry = ({ route }: Props) => {
                     <Text style={styles.DetailText}>{country.continents[0]}</Text>
 
                 </View>
-                <RelatedCountries countriesSubRegion={countriesSubRegion !== undefined ? countriesSubRegion : []} />
+                <RelatedCountries 
+                    countriesSubRegion={countriesSubRegion !== undefined ? countriesSubRegion : []} 
+                    setNavigateDetail={setNavigateDetail}/>
                 <TouchableOpacity style={styles.btnBack}
                     onPress={() => Navigate.goBack()}
                 >

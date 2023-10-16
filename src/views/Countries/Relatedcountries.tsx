@@ -2,11 +2,15 @@ import { View, Text, Pressable, Image } from 'react-native'
 import { Countries } from '../../interfaces/Countrires'
 import { ScrollView } from 'react-native-gesture-handler';
 import { styles } from '../../layout/countries';
+import { useNavigation } from '@react-navigation/native';
 
 interface RelatedCountriesProps {
     countriesSubRegion: Countries[];
+    setNavigateDetail: React.Dispatch<React.SetStateAction<boolean>>;
 }
-const RelatedCountries: React.FC<RelatedCountriesProps> = ({ countriesSubRegion }) => {
+const RelatedCountries: React.FC<RelatedCountriesProps> = ({ countriesSubRegion,setNavigateDetail }) => {
+
+    const Navigate = useNavigation();
     if(countriesSubRegion.length<=0){ return null }
     return (
 
@@ -22,7 +26,12 @@ const RelatedCountries: React.FC<RelatedCountriesProps> = ({ countriesSubRegion 
                         <View key={country.cca3} style={styles.relatedCard}>
                             <View>
                                 <Text style={styles.relatedText}>{country.name.common}</Text>
-                                <Pressable>
+                                <Pressable
+                                    onPress={() =>  {
+                                        (Navigate.navigate as any)('detail', {country },
+                                        setNavigateDetail(!false),
+                                   
+                                        )}}>
 
                                     <Image style={styles.relatedImage} source={{ uri: country.flags.png }} />
                                 </Pressable>

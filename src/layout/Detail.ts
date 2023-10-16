@@ -17,7 +17,8 @@ export const styles = StyleSheet.create({
     imageDetail: {
         width: "100%",
         height: 300,
-         borderRadius : 10,
+        borderRadius : 10,
+        objectFit : 'fill',
     },
 
     btnBack : {
