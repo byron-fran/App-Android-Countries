@@ -8,7 +8,7 @@ import RelatedCountries from './Relatedcountries';
 import { useEffect, useState, useContext } from 'react';
 import { Countries } from '../../interfaces/Countrires';
 import axios, { AxiosError } from 'axios';
-
+import Likes from '../../components/Like/Likes';
 
 interface Props extends StackScreenProps<RootStackParams, 'detail'> { }
 
@@ -51,7 +51,9 @@ const DetailCountry = ({ route }: Props) => {
                             source={{ uri: country.flags?.png }}
                         />
                     </View>
-
+                    <View>
+                        <Likes country={country}/>
+                    </View>
                     <Text style={styles.DetailText}>{country.capital}</Text>
                     <Text style={styles.DetailText}>{country.area}</Text>
                     <Text style={styles.DetailText}>{country.subregion}</Text>
